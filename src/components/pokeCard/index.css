@@ -30,9 +30,13 @@
     border: 1px solid color-mix(in srgb, var(--theme-color), #ffffff 10%);
     clip-path: polygon(0% 10%, 8% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%);
     background:
+        radial-gradient(circle at 82% 16%, rgba(230, 74, 74, 0.18) 0 12%, transparent 13%),
+        linear-gradient(90deg, rgba(204, 20, 20, 0.08) 0 33%, rgba(20, 20, 20, 0.08) 33% 66%, rgba(18, 119, 64, 0.08) 66% 100%),
+        repeating-linear-gradient(-45deg, rgba(16, 16, 16, 0.18) 0 8px, rgba(221, 208, 130, 0.04) 8px 16px),
         radial-gradient(circle at 50% -20%, color-mix(in srgb, var(--theme-color), transparent 82%), transparent 55%),
         linear-gradient(150deg, rgba(18, 28, 40, 0.9), rgba(9, 13, 21, 0.95));
-    box-shadow: 0 0 22px var(--theme-glow), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 18px 24px rgba(0, 0, 0, 0.5), 0 0 22px var(--theme-glow), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transform: perspective(860px) rotateX(3deg);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
@@ -43,11 +47,12 @@
     z-index: -2;
     opacity: 0.24;
     background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M60 14 C 30 14 14 44 60 106 C 106 44 90 14 60 14' fill='none' stroke='%23d4af37' stroke-width='2'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse at 24% 34%, rgba(81, 173, 111, 0.2) 0 24%, transparent 25%),
+        radial-gradient(ellipse at 68% 24%, rgba(230, 96, 96, 0.18) 0 22%, transparent 23%),
         repeating-linear-gradient(90deg, transparent 0 13px, rgba(212, 175, 55, 0.2) 13px 14px),
         linear-gradient(0deg, rgba(255, 255, 255, 0.05), transparent 38%);
-    background-size: 70px 70px, 100% 100%, 100% 100%;
-    background-position: right 8px top 8px, center, center;
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    background-position: center, center, center, center;
 }
 
 .poke-card::after {
@@ -63,18 +68,29 @@
 }
 
 .poke-card:hover {
-    transform: translateY(-4px);
+    transform: perspective(860px) translateY(-4px) rotateX(6deg) rotateY(-1deg);
     border-color: #ffffff;
-    box-shadow: 0 0 30px color-mix(in srgb, var(--theme-color), white 8%);
+    box-shadow: 0 24px 28px rgba(0, 0, 0, 0.55), 0 0 30px color-mix(in srgb, var(--theme-color), white 8%);
 }
 
 .adinkra-mark {
     position: absolute;
-    color: color-mix(in srgb, var(--gold-africa), white 8%);
-    font-size: 18px;
-    line-height: 1;
-    opacity: 0.8;
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.35);
+    width: 26px;
+    height: 26px;
+    font-size: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 221, 158, 0.6);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+    background: linear-gradient(90deg, rgba(206, 17, 38, 0.65) 0 33%, rgba(0, 0, 0, 0.65) 33% 66%, rgba(0, 122, 61, 0.65) 66% 100%);
+}
+
+.adinkra-mark::before {
+    color: #fff6dc;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
 }
 
 .adinkra-top-left {
@@ -82,9 +98,19 @@
     left: 12px;
 }
 
+.adinkra-top-left::before {
+    content: "AF";
+}
+
 .adinkra-bottom-right {
     right: 12px;
     bottom: 10px;
+    background:
+        radial-gradient(circle at center, rgba(230, 74, 74, 0.72) 0 28%, rgba(255, 255, 255, 0.14) 29% 30%, rgba(14, 18, 28, 0.82) 31% 100%);
+}
+
+.adinkra-bottom-right::before {
+    content: "AS";
 }
 
 .poke-card-header {
@@ -124,6 +150,17 @@
     background:
         radial-gradient(circle at center, color-mix(in srgb, var(--theme-color), transparent 72%), rgba(6, 11, 20, 0.75) 70%),
         repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 2px, transparent 2px 5px);
+    transform: perspective(700px) rotateX(9deg);
+}
+
+.poke-image-background::before {
+    content: "☠";
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+    color: rgba(246, 224, 171, 0.35);
+    font-size: 16px;
+    text-shadow: 0 0 6px rgba(246, 224, 171, 0.28);
 }
 
 .poke-image {
@@ -132,6 +169,8 @@
     object-fit: contain;
     display: block;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
     filter: drop-shadow(0 0 10px color-mix(in srgb, var(--theme-color), transparent 35%));
 }
 
