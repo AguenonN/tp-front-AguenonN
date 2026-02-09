@@ -1,6 +1,7 @@
 import { Link, useParams, useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import { api } from '../api';
+import './pokemonDetails.css';
 
 const PokemonDetails = () => { 
     const { name } = useParams();
@@ -33,39 +34,72 @@ const PokemonDetails = () => {
         setIsEditing(false);
     };
 
-    if (loading) return <p>Chargement...</p>;
+    const statIcons = {
+        HP: "❤",
+        Attack: "⚔️",
+        Defense: "🛡️",
+        SpecialAttack: "✦",
+        SpecialDefense: "◈",
+        Speed: "⚡",
+    };
+
+    if (loading) return <p className="details-loading">Chargement...</p>;
 
     return (
         <div className="details-view">
-            <h1>{pokemon.name.french} ({pokemon.name.english})</h1>
-            <img src={pokemon.image} alt={pokemon.name.english} width="200" />
-            
-            {!isEditing ? (
-                <div className="info">
-                    <div className="stats-grid">
-                        {Object.entries(pokemon.base).map(([k, v]) => <p key={k}>{k}: {v}</p>)}
-                    </div>
-                    <button onClick={() => setIsEditing(true)}>Modifier les Stats</button>
-                    <button onClick={handleDelete} className="danger">Supprimer</button>
+            <div className="details-card">
+                <div className="details-page-label">Page 1</div>
+
+                <div className="details-name-panel">
+                    <h1 className="details-name">{pokemon.name.french}</h1>
+                    <p className="details-name-en">({pokemon.name.english})</p>
                 </div>
-            ) : (
-                <form onSubmit={handleUpdate}>
-                    {Object.entries(formData).map(([k, v]) => (
-                        <div key={k}>
-                            <label>{k}: </label>
-                            <input 
-                                type="number" 
-                                value={v} 
-                                onChange={(e) => setFormData({...formData, [k]: parseInt(e.target.value)})}
-                            />
+
+                <p className="details-type">{pokemon.type.join(" / ")}</p>
+
+                <div className="details-image-panel">
+                    <img src={pokemon.image} alt={pokemon.name.english} className="details-image" />
+                </div>
+
+                {!isEditing ? (
+                    <div className="info">
+                        <div className="stats-grid">
+                            {Object.entries(pokemon.base).map(([k, v]) => (
+                                <div className="stat-row" key={k}>
+                                    <span className="stat-left">
+                                        <span className="stat-icon" aria-hidden="true">{statIcons[k] || "•"}</span>
+                                        {k}
+                                    </span>
+                                    <span className="stat-right">{v}</span>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                    <button type="submit">Sauvegarder</button>
-                    <button type="button" onClick={() => setIsEditing(false)}>Annuler</button>
-                </form>
-            )}
-            <br />
-            <Link to="/">Retour au Pokédex</Link>
+                        <div className="details-actions">
+                            <button className="details-btn" onClick={() => setIsEditing(true)}>Modifier les Stats</button>
+                            <button className="details-btn details-btn-danger" onClick={handleDelete}>Supprimer</button>
+                        </div>
+                    </div>
+                ) : (
+                    <form className="details-form" onSubmit={handleUpdate}>
+                        {Object.entries(formData).map(([k, v]) => (
+                            <div key={k} className="form-row">
+                                <label>{k}</label>
+                                <input 
+                                    type="number" 
+                                    value={v} 
+                                    onChange={(e) => setFormData({...formData, [k]: parseInt(e.target.value || 0, 10)})}
+                                />
+                            </div>
+                        ))}
+                        <div className="details-actions">
+                            <button className="details-btn" type="submit">Sauvegarder</button>
+                            <button className="details-btn details-btn-secondary" type="button" onClick={() => setIsEditing(false)}>Annuler</button>
+                        </div>
+                    </form>
+                )}
+
+                <Link className="details-back-link" to="/">Retour au Pokédex</Link>
+            </div>
         </div>
     );
 };

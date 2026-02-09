@@ -7,4 +7,4 @@ const Title = ({label = 'Met un titre'}) => {
 )
 }
 
-export default Title
+export default Title 
