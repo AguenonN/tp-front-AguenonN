@@ -22,7 +22,7 @@ const usePokemon = (pokemonUrl) => {
         };
 
         fetchPokemon();
-    }, [pokemonUrl]);
+    }, [pokemonUrl]);        
 
     return { pokemonData, loading, error };
 };
