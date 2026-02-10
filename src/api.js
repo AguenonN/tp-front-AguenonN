@@ -29,6 +29,7 @@ async function requestNullable(path, options = {}) {
 
 export const api = {
   getByPage: (page) => request(`/pokemonsByPage/${page}`),
+  getAll: () => request(`/pokemons`),
   getById: (id) => request(`/pokemons/${id}`),
   getByNameEnglish: (name) => request(`/pokemonByName/${encodeURIComponent(name)}`),
   getExactByAnyName: (name) => requestNullable(`/pokemonExactByName/${encodeURIComponent(name)}`),
@@ -49,6 +50,7 @@ export const api = {
     }),
 
   // Backward-compatible aliases used by existing components
+  getAllPokemons: () => request(`/pokemons`),
   getPokemons: (page = 0) => request(`/pokemonsByPage/${page}`),
   getPokemonByName: (name) => request(`/pokemonByName/${encodeURIComponent(name)}`),
   getExactPokemonByAnyName: (name) => requestNullable(`/pokemonExactByName/${encodeURIComponent(name)}`),

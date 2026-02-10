@@ -3,6 +3,13 @@ import PokeCard from "../pokeCard";
 import { api } from "../../api"; 
 import './index.css';
 
+const normalize = (value) =>
+    String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+
 const PokeList = () => {
     const [page, setPage] = useState(0);
     const [pokemons, setPokemons] = useState([]);
@@ -42,17 +49,26 @@ const PokeList = () => {
         setLoading(true);
 
         const request = isSearching
-            ? api.getExactPokemonByAnyName(trimmedSearch)
+            ? api.getAllPokemons()
             : api.getPokemons(page);
 
         request
             .then((data) => {
                 if (cancelled) return;
-                if (isSearching) {
-                    setPokemons(data ? [data] : []);
-                } else {
-                    setPokemons(Array.isArray(data) ? data : []);
+                const list = Array.isArray(data) ? data : [];
+                if (!isSearching) {
+                    setPokemons(list);
+                    setLoading(false);
+                    return;
                 }
+
+                const query = normalize(trimmedSearch);
+                const filtered = list.filter((pokemon) => {
+                    const en = normalize(pokemon?.name?.english);
+                    const fr = normalize(pokemon?.name?.french);
+                    return en.includes(query) || fr.includes(query);
+                });
+                setPokemons(filtered);
                 setLoading(false);
             })
             .catch((error) => {
