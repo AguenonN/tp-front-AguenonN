@@ -55,6 +55,8 @@ export const api = {
   getPokemonByName: (name) => request(`/pokemonByName/${encodeURIComponent(name)}`),
   getExactPokemonByAnyName: (name) => requestNullable(`/pokemonExactByName/${encodeURIComponent(name)}`),
   searchPokemonsByName: (name) => request(`/pokemonsSearch?name=${encodeURIComponent(name)}`),
+  createPokemon: (payload) =>
+    request(`/pokemonCreate`, { method: "POST", body: JSON.stringify(payload) }),
   updatePokemon: (nameEnglish, payload) =>
     request(`/pokemonUpdate/${encodeURIComponent(nameEnglish)}`, {
       method: "PUT",

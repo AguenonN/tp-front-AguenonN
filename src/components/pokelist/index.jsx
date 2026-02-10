@@ -136,7 +136,12 @@ const PokeList = () => {
             const refreshed = await api.getPokemons(page);
             setPokemons(Array.isArray(refreshed) ? refreshed : []);
         } catch (error) {
-            setCreateError("Impossible d'ajouter le Pokémon. Vérifie les champs et le lien d'image.");
+            const backendMessage = String(error?.message || "");
+            setCreateError(
+                backendMessage
+                    ? `Impossible d'ajouter le Pokémon: ${backendMessage}`
+                    : "Impossible d'ajouter le Pokémon. Vérifie les champs et le lien d'image."
+            );
             console.error(error);
         } finally {
             setCreateLoading(false);
