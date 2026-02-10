@@ -34,15 +34,6 @@ const PokemonDetails = () => {
         setIsEditing(false);
     };
 
-    const statIcons = {
-        HP: "❤",
-        Attack: "⚔️",
-        Defense: "🛡️",
-        SpecialAttack: "✦",
-        SpecialDefense: "◈",
-        Speed: "⚡",
-    };
-
     if (loading) return <p className="details-loading">Chargement...</p>;
 
     return (
@@ -66,10 +57,7 @@ const PokemonDetails = () => {
                         <div className="stats-grid">
                             {Object.entries(pokemon.base).map(([k, v]) => (
                                 <div className="stat-row" key={k}>
-                                    <span className="stat-left">
-                                        <span className="stat-icon" aria-hidden="true">{statIcons[k] || "•"}</span>
-                                        {k}
-                                    </span>
+                                    <span className="stat-left">{k}</span>
                                     <span className="stat-right">{v}</span>
                                 </div>
                             ))}

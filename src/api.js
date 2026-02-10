@@ -16,10 +16,23 @@ async function request(path, options = {}) {
   return res.json();
 }
 
+async function requestNullable(path, options = {}) {
+  try {
+    return await request(path, options);
+  } catch (error) {
+    if (String(error?.message || "").includes("HTTP 404")) {
+      return null;
+    }
+    throw error;
+  }
+}
+
 export const api = {
   getByPage: (page) => request(`/pokemonsByPage/${page}`),
   getById: (id) => request(`/pokemons/${id}`),
   getByNameEnglish: (name) => request(`/pokemonByName/${encodeURIComponent(name)}`),
+  getExactByAnyName: (name) => requestNullable(`/pokemonExactByName/${encodeURIComponent(name)}`),
+  searchByName: (name) => request(`/pokemonsSearch?name=${encodeURIComponent(name)}`),
 
   create: (payload) =>
     request(`/pokemonCreate`, { method: "POST", body: JSON.stringify(payload) }),
@@ -38,6 +51,8 @@ export const api = {
   // Backward-compatible aliases used by existing components
   getPokemons: (page = 0) => request(`/pokemonsByPage/${page}`),
   getPokemonByName: (name) => request(`/pokemonByName/${encodeURIComponent(name)}`),
+  getExactPokemonByAnyName: (name) => requestNullable(`/pokemonExactByName/${encodeURIComponent(name)}`),
+  searchPokemonsByName: (name) => request(`/pokemonsSearch?name=${encodeURIComponent(name)}`),
   updatePokemon: (nameEnglish, payload) =>
     request(`/pokemonUpdate/${encodeURIComponent(nameEnglish)}`, {
       method: "PUT",
