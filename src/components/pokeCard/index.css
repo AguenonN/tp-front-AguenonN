@@ -136,22 +136,33 @@
 .stats-layer {
     z-index: 4;
     transform: translateZ(95px);
-    left: 14px;
-    right: 14px;
+    left: 22px;
+    right: 22px;
     bottom: 12px;
-    top: 236px;
+    top: 228px;
 }
 
 .poke-stats {
+    position: relative;
     height: 100%;
-    padding: 10px 16px 12px;
-    clip-path: polygon(1% 10%, 8% 2%, 22% 4%, 37% 1%, 53% 4%, 68% 1%, 81% 4%, 93% 1%, 99% 10%, 96% 28%, 99% 44%, 97% 62%, 99% 81%, 94% 98%, 80% 95%, 66% 99%, 53% 96%, 39% 99%, 24% 96%, 11% 99%, 2% 92%, 5% 75%, 1% 58%, 4% 41%, 1% 23%);
+    padding: 12px 24px 14px;
+    isolation: isolate;
+}
+
+.poke-stats::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    clip-path: polygon(3% 10%, 9% 3%, 22% 5%, 37% 2%, 53% 5%, 68% 2%, 81% 5%, 92% 2%, 97% 10%, 95% 28%, 97% 44%, 95% 62%, 97% 81%, 92% 97%, 79% 94%, 66% 97%, 53% 95%, 39% 97%, 24% 95%, 12% 97%, 4% 92%, 6% 75%, 3% 58%, 6% 41%, 3% 23%);
     background:
         radial-gradient(circle at 50% 20%, rgba(255, 241, 209, 0.12), transparent 60%),
         linear-gradient(135deg, rgba(74, 46, 24, 0.94), rgba(53, 33, 18, 0.96));
 }
 
 .poke-stat-row {
+    position: relative;
+    z-index: 1;
     display: grid;
     gap: 4px;
     margin-bottom: 4px;
@@ -165,7 +176,7 @@
     display: flex;
     justify-content: space-between;
     gap: 8px;
-    padding: 0 8px;
+    padding: 0 12px;
     font-family: "IM Fell English", "Cormorant Garamond", serif;
     color: #f7e3be;
 }
@@ -185,7 +196,7 @@
 .stat-bar {
     position: relative;
     height: 8px;
-    margin: 0 8px;
+    margin: 0 12px;
     clip-path: polygon(0 43%, 4% 10%, 16% 24%, 31% 5%, 46% 22%, 61% 8%, 75% 28%, 88% 11%, 100% 35%, 95% 75%, 82% 57%, 67% 90%, 51% 60%, 35% 87%, 20% 66%, 7% 91%);
     background: rgba(241, 223, 190, 0.25);
 }
