@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PokeCard from "../pokeCard";
 import { api } from "../../api"; 
+import { getIntegrityLock } from "../../utils/integrityLock";
 import './index.css';
 
 const normalize = (value) =>
@@ -32,6 +33,14 @@ const PokeList = () => {
     const [createLoading, setCreateLoading] = useState(false);
     const [createMessage, setCreateMessage] = useState("");
     const [createError, setCreateError] = useState("");
+    const [integrityLock, setIntegrityLock] = useState(null);
+
+    useEffect(() => {
+        const syncLock = () => setIntegrityLock(getIntegrityLock());
+        syncLock();
+        window.addEventListener("focus", syncLock);
+        return () => window.removeEventListener("focus", syncLock);
+    }, []);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -286,7 +295,11 @@ const PokeList = () => {
 
             <ul className="poke-list">
                 {pokemons.map((pokemon) => (
-                    <PokeCard key={pokemon._id || pokemon.id} pokemon={pokemon} />
+                    <PokeCard
+                        key={pokemon._id || pokemon.id}
+                        pokemon={pokemon}
+                        integrityLock={integrityLock}
+                    />
                 ))}
             </ul>
         </div>

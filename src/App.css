@@ -1,8 +1,132 @@
+/* Layout Shell */
 #root {
   width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: clamp(0.5rem, 2vw, 1.5rem);
+  max-width: none;
+  margin: 0;
+  padding: clamp(0.6rem, 1.8vw, 1.25rem);
   box-sizing: border-box;
   text-align: center;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header Royal Dahomey */
+.royal-header {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 130px minmax(240px, 1fr) 130px;
+  align-items: center;
+  gap: clamp(0.7rem, 2vw, 1.4rem);
+  width: min(1400px, 100%);
+  margin: 0 auto clamp(0.9rem, 2vw, 1.3rem);
+  padding: clamp(0.75rem, 1.8vw, 1rem) clamp(0.8rem, 2vw, 1.5rem);
+  border-radius: 18px;
+  border: 1px solid rgba(232, 192, 116, 0.7);
+  background:
+    radial-gradient(circle at 22% 18%, rgba(239, 202, 129, 0.12), transparent 46%),
+    radial-gradient(circle at 80% 68%, rgba(0, 232, 255, 0.1), transparent 52%),
+    repeating-linear-gradient(31deg, rgba(249, 217, 153, 0.06) 0 7px, transparent 7px 14px),
+    linear-gradient(155deg, rgba(34, 21, 12, 0.95), rgba(57, 35, 20, 0.97));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 220, 154, 0.22),
+    inset 0 0 24px rgba(0, 226, 255, 0.1),
+    0 18px 36px rgba(0, 0, 0, 0.62);
+  clip-path: polygon(1% 13%, 5% 3%, 16% 6%, 29% 2%, 43% 5%, 57% 2%, 70% 6%, 84% 2%, 96% 5%, 99% 14%, 97% 28%, 99% 43%, 96% 58%, 99% 74%, 96% 90%, 91% 98%, 78% 95%, 64% 99%, 50% 95%, 37% 99%, 24% 95%, 10% 99%, 2% 90%, 4% 74%, 1% 59%, 4% 44%, 1% 29%);
+}
+
+/* Drapeau du Benin 100% CSS */
+.benin-flag {
+  height: 82px;
+  width: 124px;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(241, 205, 129, 0.68);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 240, 214, 0.22),
+    0 0 14px rgba(0, 230, 255, 0.2),
+    0 8px 14px rgba(13, 7, 4, 0.55);
+}
+
+.benin-green {
+  background: #008751;
+}
+
+.benin-right {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.benin-yellow {
+  background: #fcd116;
+}
+
+.benin-red {
+  background: #e8112d;
+}
+
+/* Masque de bronze */
+.bronze-seal-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.bronze-seal {
+  width: clamp(72px, 9vw, 96px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 999px;
+  border: 2px solid rgba(227, 186, 108, 0.8);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 231, 184, 0.2),
+    0 0 18px rgba(0, 226, 255, 0.22),
+    0 12px 22px rgba(0, 0, 0, 0.55);
+  filter: saturate(1.05) contrast(1.08);
+}
+
+/* Titre d'or */
+.royal-title {
+  margin: 0;
+  text-align: center;
+  justify-self: center;
+  text-transform: uppercase;
+  letter-spacing: clamp(0.1em, 1vw, 0.22em);
+  font-size: clamp(1.4rem, 3.8vw, 2.9rem);
+  font-family: "Cinzel Decorative", "Cinzel", "Palatino Linotype", serif;
+  color: #f7d799;
+  text-shadow:
+    0 1px 0 #7a4d16,
+    0 2px 0 #7a4d16,
+    0 0 10px rgba(251, 200, 111, 0.55),
+    0 0 22px rgba(0, 224, 255, 0.35);
+}
+
+@media (max-width: 900px) {
+  .royal-header {
+    grid-template-columns: 100px 1fr 100px;
+  }
+
+  .benin-flag {
+    height: 68px;
+    width: 102px;
+  }
+}
+
+@media (max-width: 680px) {
+  .royal-header {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 0.65rem;
+    padding: 0.8rem;
+  }
+
+  .royal-title {
+    text-align: center;
+  }
 }

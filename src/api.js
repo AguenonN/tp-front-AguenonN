@@ -34,6 +34,8 @@ export const api = {
   getByNameEnglish: (name) => request(`/pokemonByName/${encodeURIComponent(name)}`),
   getExactByAnyName: (name) => requestNullable(`/pokemonExactByName/${encodeURIComponent(name)}`),
   searchByName: (name) => request(`/pokemonsSearch?name=${encodeURIComponent(name)}`),
+  getAuditLogsByName: (name, limit = 20) =>
+    request(`/auditLogs/${encodeURIComponent(name)}?limit=${encodeURIComponent(limit)}`),
 
   create: (payload) =>
     request(`/pokemonCreate`, { method: "POST", body: JSON.stringify(payload) }),
@@ -48,6 +50,10 @@ export const api = {
     request(`/pokemonDelete/${encodeURIComponent(nameEnglish)}`, {
       method: "DELETE",
     }),
+  purgePokedex: () =>
+    request(`/pokemonsPurge`, {
+      method: "DELETE",
+    }),
 
   // Backward-compatible aliases used by existing components
   getAllPokemons: () => request(`/pokemons`),
@@ -55,6 +61,8 @@ export const api = {
   getPokemonByName: (name) => request(`/pokemonByName/${encodeURIComponent(name)}`),
   getExactPokemonByAnyName: (name) => requestNullable(`/pokemonExactByName/${encodeURIComponent(name)}`),
   searchPokemonsByName: (name) => request(`/pokemonsSearch?name=${encodeURIComponent(name)}`),
+  getPokemonAuditLogs: (name, limit = 20) =>
+    request(`/auditLogs/${encodeURIComponent(name)}?limit=${encodeURIComponent(limit)}`),
   createPokemon: (payload) =>
     request(`/pokemonCreate`, { method: "POST", body: JSON.stringify(payload) }),
   updatePokemon: (nameEnglish, payload) =>
@@ -64,6 +72,10 @@ export const api = {
     }),
   deletePokemon: (nameEnglish) =>
     request(`/pokemonDelete/${encodeURIComponent(nameEnglish)}`, {
+      method: "DELETE",
+    }),
+  purgePokemons: () =>
+    request(`/pokemonsPurge`, {
       method: "DELETE",
     }),
 };
